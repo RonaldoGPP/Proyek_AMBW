@@ -2,6 +2,7 @@ from flask import *
 from flask_bootstrap import Bootstrap
 import os
 from flask_pymongo import PyMongo
+from bson import ObjectId
 from werkzeug.utils import secure_filename
 from passlib.hash import bcrypt
 
@@ -102,6 +103,24 @@ def upload():
             flash("An error occurred while uploading the image!", "danger")
             return redirect(url_for("upload"))
     return render_template("upload.html")
+
+@app.route("/delete/<image_id>", methods=["POST"])
+def delete(image_id):
+    username = session.get("username")
+    if username:
+        image = img_collection.find_one({"_id": ObjectId(image_id), "username": username})
+        if image:
+            filename = image["filename"]
+            # Remove the image file from the file system
+            os.remove(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            # Delete the image document from the collection
+            img_collection.delete_one({"_id": ObjectId(image_id)})
+            flash("Successfully deleted image from gallery!", "success")
+        else:
+            flash("Image not found or you do not have permission to delete it.", "danger")
+    else:
+        flash("You need to be logged in to delete images.", "danger")
+    return redirect(url_for("gallery"))
 
 if __name__ == "__main__":
     app.run(debug=True)
