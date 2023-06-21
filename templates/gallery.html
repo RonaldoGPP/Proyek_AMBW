@@ -15,6 +15,11 @@
         <img class="card-img-top" src="{{ url_for('static', filename='uploads/' + i.filename) }}">
         <div class="card-body">
           <p class="card-text">{{ i.description }}</p>
+          <form action="{{ url_for('delete', image_id=i._id) }}" method="post">
+            <button type="submit" class="btn btn-danger">
+              <i class="bi bi-trash-fill"></i> Delete
+            </button>
+          </form>
         </div>
       </div>
     </div>
