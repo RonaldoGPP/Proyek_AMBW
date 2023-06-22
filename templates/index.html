@@ -7,8 +7,14 @@
 {% endblock %}
 {% block scripts %}
   {{ super() }}
-  
   <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script>
+    window.addEventListener('load', () => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.controller.postMessage({ action: 'clearCache' });
+      }
+    });
+  </script>
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -32,6 +38,5 @@
     </div>
   </div>
 </div>
-
-
+ 
 {% endblock %}

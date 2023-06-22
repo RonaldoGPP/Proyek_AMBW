@@ -1,11 +1,18 @@
 {% extends "bootstrap/base.html" %}
 {% block styles %}
-  {{ super() }}
+{{ super() }}
   <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
 {% endblock %}
 {% block scripts %}
   {{ super() }}
   <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script>
+  window.addEventListener('load', () => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.controller.postMessage({ action: 'clearCache' });
+    }
+  });
+</script>
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -23,7 +30,7 @@
         <div class="card-body">
           <p class="card-text">{{ i.description }}</p>
           <form action="{{ url_for('delete', image_id=i._id) }}" method="post">
-            <button type="submit" class="btn btn-danger">
+            <button type="submit" class="btn btn-danger"  onclick="deleteAndRefresh()">
               <i class="bi bi-trash-fill"></i> Delete
             </button>
           </form>
@@ -34,5 +41,23 @@
   </div>
 </div>
 
-
+<script>
+  function deleteAndRefresh() {
+    // Make sure the user confirms the deletion
+    if (confirm('Are you sure you want to delete this image?')) {
+      // Perform any additional operations if needed
+      // ...
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.controller.postMessage({ action: 'clearCache' });
+    }
+      // Refresh the page after the form submission
+      setTimeout(() => {
+      location.reload();
+    }, 60000);
+    } else {
+      // Prevent the form submission
+      return false;
+    }
+  }
+</script>
 {% endblock %}
