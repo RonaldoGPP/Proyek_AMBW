@@ -40,7 +40,7 @@
     .form-container button {
       width: 100%;
       padding: 8px;
-      background-color: #4CAF50;
+      background-color: #1e00ff;
       color: white;
       border: none;
       border-radius: 4px;
@@ -52,6 +52,7 @@
       margin-top: 10px;
     }
   </style>
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
 </head>
 <body>
   <div class="container">
@@ -88,5 +89,19 @@
       document.getElementById(formId).style.display = 'block';
     }
   </script>
+  <!-- <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch((error) => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script> -->
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>

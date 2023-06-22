@@ -1,4 +1,15 @@
 {% extends "bootstrap/base.html" %}
+
+
+{% block styles %}
+{{ super() }}
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+  
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}
 {% block content %}
 <div class="container">
   <div class="row justify-content-center">
@@ -21,4 +32,6 @@
     </div>
   </div>
 </div>
+
+
 {% endblock %}

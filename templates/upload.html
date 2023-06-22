@@ -1,9 +1,20 @@
-{% extends "bootstrap/base.html" %} {% block content %}
+{% extends "bootstrap/base.html" %} 
+
+{% block styles %}
+  {{ super() }}
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}
+{% block content %}
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-lg-12">
       <div class="jumbotron text-center p-4">
-        <h2>Cloudinary Image Management Demo</h2>
+        <h2>Online Image Gallery</h2>
       </div>
     </div>
     <div class="col-lg-6 text-center">
@@ -45,4 +56,5 @@
     </div>
   </div>
 </div>
+
 {% endblock %}
