@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login and Signup</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+     body {
+   
+    background-color: #176b87;
+  }
+    .form-container {
+      width: 300px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #dafffb;
+     
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+      text-align: center;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 8px;
+      background-color: #1e00ff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .form-container .toggle-form {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2>Account</h2>
+      <form id="login-form" action="/login" method="POST">
+        <label for="login-username">Username</label>
+        <input type="text" id="login-username" name="username" required>
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" name="password" required>
+        <button type="submit">Login</button>
+        <div class="toggle-form">
+          Don't have an account?
+          <a href="#" onclick="toggleForm('signup-form')">Sign up</a>
+        </div>
+      </form>
+      <form id="signup-form" action="/signup" method="POST" style="display: none;">
+        <label for="signup-username">Username</label>
+        <input type="text" id="signup-username" name="username" required>
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" name="password" required>
+        <button type="submit">Sign up</button>
+        <div class="toggle-form">
+          Already have an account?
+          <a href="#" onclick="toggleForm('login-form')">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    function toggleForm(formId) {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById(formId).style.display = 'block';
+    }
+  </script>
+  <!-- <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch((error) => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script> -->
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

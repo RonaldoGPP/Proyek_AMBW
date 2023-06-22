@@ -1,0 +1,86 @@
+{% extends "bootstrap/base.html" %}
+{% block styles %}
+  {{ super() }}
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+  <style>
+   .jumbotron {
+    background-color: #176b87;
+    color: #fff;
+    border-radius: 50px;
+  }
+  body {
+    background-color: #dafffb;
+  }
+    h2 {
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    .card {
+      margin-bottom: 20px;
+    }
+
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-text {
+      margin-bottom: 10px;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+      background-color: #64ccc5;
+    border-color: #64ccc5;
+    }
+    .btn-custom {
+    background-color: #64ccc5;
+    border-color: #64ccc5;
+  }
+  
+  .btn-custom:hover {
+    background-color: #4aa8a2;
+    border-color: #4aa8a2;
+  }
+  </style>
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-12 text-center">
+      <div class="jumbotron text-center p-4">
+        <h2>Online Image Gallery</h2>
+      </div>
+      <a href="{{ url_for('index') }}" class="btn btn-primary btn-custom m-3">Go Home</a> 
+    </div>
+    {% for i in gallery %}
+    <div class="col-lg-4">
+      <br>
+      <div class="card">
+        <img class="card-img-top" src="{{ url_for('static', filename='uploads/' + i.filename) }}">
+        <div class="card-body">
+          <br>
+          <p class="card-text">{{ i.description }}</p>
+          <form action="{{ url_for('delete', image_id=i._id) }}" method="post">
+            <button type="submit" class="btn btn-danger">
+              <i class="bi bi-trash-fill"></i> Delete
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}
