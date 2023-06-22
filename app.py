@@ -1,5 +1,6 @@
 from flask import *
 from flask_bootstrap import Bootstrap
+
 import os
 from flask_pymongo import PyMongo
 from bson import ObjectId
@@ -121,6 +122,14 @@ def delete(image_id):
     else:
         flash("You need to be logged in to delete images.", "danger")
     return redirect(url_for("gallery"))
+# @app.route('/manifest.json')
+# def manifest():
+#     return send_from_directory('static', 'manifest.json', mimetype='application/json')
+
+@app.route('/service-worker.js')
+def sw():
+    return app.send_static_file('service-worker.js')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
