@@ -3,7 +3,30 @@
     "short_name": "Gallery",
     "theme_color": "#34A5DA",
     "background_color": "#FFFFFF",
+    "icons": [
+        {
+            "src": "/static/icon/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/icon/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/icon/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/icon/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
     "start_url": "/",
     "display": "standalone",
     "orientation": "portrait"
+    
 }
